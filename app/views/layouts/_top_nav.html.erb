@@ -9,6 +9,10 @@
 <nav class="navbar navbar-expand-lg navbar-dark sticky-nav">
   <div class="container">
     <a class="navbar-brand" href="<%= root_path %>">Jungle</a>
+    <li class="navbar-item">
+      <%= link_to about_index_path, class: "nav-item" do %>
+      About Us <% end %>
+    </li>
     <button
       class="navbar-toggler"
       type="button"

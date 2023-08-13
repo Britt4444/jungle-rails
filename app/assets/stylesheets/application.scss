@@ -97,6 +97,10 @@ form.button_to {
   z-index: 900;
   font-weight: 700;
 
+  li {
+    list-style: none;
+  }
+
   .navbar-brand {
     font-weight: 900;
     font-family: "Montserrat";
