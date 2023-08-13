@@ -1,9 +1,9 @@
-<h1>Signup!</h1>
+<h1>Sign Up!</h1>
 
 <div class="col-md-2">
   <%= form_for :user, url: '/users' do |f|%>
-    First name: <%= f.text_field :first_name %>
-    Last name: <%= f.text_field :last_name %>
+    First Name: <%= f.text_field :first_name %>
+    Last Name: <%= f.text_field :last_name %>
     Email: <%= f.text_field :email %>
     Password: <%= f.password_field :password %>
     Password Confirmation: <%= f.password_field :password_confirmation %>
