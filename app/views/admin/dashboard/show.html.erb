@@ -1,2 +1,40 @@
-<h1>Admin::Dashboard#show</h1>
-<p>Find me in app/views/admin/dashboard/show.html.erb</p>
+
+<section class="admin-dashboard-show">
+
+  <header class="page-header">
+    <h1>Admin &raquo; Dashboard</h1>
+  </header>
+
+  <div class="panel panel-default categories">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Class</th>
+          <th>Count</th>
+          <th>Create</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row"><a href="/admin/categories" class="link">Categories</a></th>
+          <td><%= @CategoriesCount%></td>
+          <th>
+            <div class="well">
+              <%= link_to '+ New Category', [:new, :admin, :category], class: 'btn btn-info' %>
+            </div>
+          </th>
+        </tr>
+        <tr>
+          <th scope="row"><a href="/admin/products" class="link">Products</a></th>
+          <td><%= @ProductsCount%></td>
+          <th>
+            <div class="well">
+              <%= link_to '+ New Product', [:new, :admin, :product], class: 'btn btn-info' %>
+            </div>
+          </th>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
+</section>
