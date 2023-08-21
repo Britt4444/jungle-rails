@@ -9,7 +9,8 @@ RSpec.describe User, type: :model do
         :last_name => "last name",
         :email => "email@email.com",
         :password => "1234",
-        :password_confirmation => "1234")
+        :password_confirmation => "1234"
+        )
 
       user.validate
       # should save without error msg
@@ -23,7 +24,8 @@ RSpec.describe User, type: :model do
         :last_name => "last name",
         :email => "email@email.com",
         :password => nil,
-        :password_confirmation => "1234")
+        :password_confirmation => "1234"
+        )
 
       expect(user).to_not be_valid
       expect(user.errors.full_messages).to include "Password can't be blank"
@@ -36,7 +38,8 @@ RSpec.describe User, type: :model do
         :last_name => "last name",
         :email => "email@email.com",
         :password => "1234",
-        :password_confirmation => nil)
+        :password_confirmation => nil
+        )
 
       expect(user).to_not be_valid
       expect(user.errors.full_messages).to include "Password confirmation can't be blank"
@@ -49,7 +52,8 @@ RSpec.describe User, type: :model do
         :last_name => "last name",
         :email => "email@email.com",
         :password => "password",
-        :password_confirmation => "1234")
+        :password_confirmation => "1234"
+        )
 
       expect(user).to_not be_valid
       expect(user.errors.full_messages).to include "Password confirmation doesn't match Password"
@@ -69,7 +73,8 @@ RSpec.describe User, type: :model do
         :last_name => "last",
         :email => "EMAIL@email.com",
         :password => "password",
-        :password_confirmation => "password")
+        :password_confirmation => "password"
+        )
 
       expect(user_two).to_not be_valid
       expect(user_two.errors.full_messages).to include "Email has already been taken"
@@ -82,7 +87,8 @@ RSpec.describe User, type: :model do
         :last_name => "last name",
         :email => "email@email.com",
         :password => "1234",
-        :password_confirmation => "1234")
+        :password_confirmation => "1234"
+        )
 
       expect(user).to_not be_valid
       expect(user.errors.full_messages).to include "First name can't be blank"
@@ -95,7 +101,8 @@ RSpec.describe User, type: :model do
         :last_name => nil,
         :email => "email@email.com",
         :password => "1234",
-        :password_confirmation => "1234")
+        :password_confirmation => "1234"
+        )
 
       expect(user).to_not be_valid
       expect(user.errors.full_messages).to include "Last name can't be blank"
@@ -108,10 +115,25 @@ RSpec.describe User, type: :model do
         :last_name => "last name",
         :email => nil,
         :password => "1234",
-        :password_confirmation => "1234")
+        :password_confirmation => "1234"
+        )
 
       expect(user).to_not be_valid
       expect(user.errors.full_messages).to include "Email can't be blank"
+    end
+
+    it "Validates that password must have a minimum length of 4" do
+      @category = Category.create(:name => "test")
+      user = User.new(
+        :first_name => "first name",
+        :last_name => "last name",
+        :email => "email@email.com",
+        :password => "123",
+        :password_confirmation => "123"
+        )
+
+      expect(user).to_not be_valid
+      expect(user.errors.full_messages).to include "Password is too short (minimum is 4 characters)"
     end
   end
 end
