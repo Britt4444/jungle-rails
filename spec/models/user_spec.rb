@@ -135,5 +135,84 @@ RSpec.describe User, type: :model do
       expect(user).to_not be_valid
       expect(user.errors.full_messages).to include "Password is too short (minimum is 4 characters)"
     end
+
+  end
+
+  describe '.authenticate_with_credentials' do
+    it "Authenticates with valid email/password" do
+      @category = Category.create(:name => "test")
+      user = User.new(
+        :first_name => "first name",
+        :last_name => "last name",
+        :email => "email@email.com",
+        :password => "1234",
+        :password_confirmation => "1234"
+        )
+      
+      user.save!
+      userAuth = User.authenticate_with_credentials(user.email, user.password)
+      expect(userAuth).to eq user
+    end
+
+    it "Authenticates with extra whitespace around email" do
+      @category = Category.create(:name => "test")
+      user = User.new(
+        :first_name => "first name",
+        :last_name => "last name",
+        :email => "email@email.com",
+        :password => "1234",
+        :password_confirmation => "1234"
+        )
+      
+      user.save!
+      userAuth = User.authenticate_with_credentials("   email@email.com   ", user.password)
+      expect(userAuth).to eq user
+    end
+
+    it "Authenticates when email is correct but in the wrong case" do
+      @category = Category.create(:name => "test")
+      user = User.new(
+        :first_name => "first name",
+        :last_name => "last name",
+        :email => "email@email.com",
+        :password => "1234",
+        :password_confirmation => "1234"
+        )
+      
+      user.save!
+      userAuth = User.authenticate_with_credentials("EMAIL@email.com", user.password)
+      expect(userAuth).to eq user
+    end
+
+    it "Returns nil/does not authenticate when emails do not match" do
+      @category = Category.create(:name => "test")
+      user = User.new(
+        :first_name => "first name",
+        :last_name => "last name",
+        :email => "email@email.com",
+        :password => "1234",
+        :password_confirmation => "1234"
+        )
+      
+      user.save!
+      userAuth = User.authenticate_with_credentials("test@email.com", user.password)
+      expect(userAuth).to be nil
+    end
+
+    it "Returns nil/does not authenticate when passwords do not match" do
+      @category = Category.create(:name => "test")
+      user = User.new(
+        :first_name => "first name",
+        :last_name => "last name",
+        :email => "email@email.com",
+        :password => "1234",
+        :password_confirmation => "1234"
+        )
+      
+      user.save!
+      userAuth = User.authenticate_with_credentials(user.email, "12345")
+      expect(userAuth).to be nil
+    end
+
   end
 end
